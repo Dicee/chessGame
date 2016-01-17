@@ -1,9 +1,9 @@
-package com.dici.chess.model;
+package miscellaneous.chess.model;
 
 import java.util.List;
 
-import com.dici.chess.utils.Delta;
-import com.dici.chess.utils.ImmutablePoint;
+import com.dici.math.geometry.geometry2D.Delta;
+import com.dici.math.geometry.geometry2D.ImmutablePoint;
 
 public interface Move {
     Delta delta();

@@ -1,6 +1,6 @@
-package com.dici.chess.model;
+package miscellaneous.chess.model;
 
-import com.dici.chess.utils.ImmutablePoint;
+import com.dici.math.geometry.geometry2D.ImmutablePoint;
 
 public interface ReadableBoard {
     Player getOccupier(int x, int y);

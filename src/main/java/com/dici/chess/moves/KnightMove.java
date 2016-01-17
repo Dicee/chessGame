@@ -1,4 +1,4 @@
-package com.dici.chess.moves;
+package miscellaneous.chess.moves;
 
 import static com.dici.check.Check.notNull;
 import static java.util.Collections.emptyList;
@@ -8,11 +8,12 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.dici.chess.model.Move;
-import com.dici.chess.model.Player;
-import com.dici.chess.model.ReadableBoard;
-import com.dici.chess.utils.Delta;
-import com.dici.chess.utils.ImmutablePoint;
+import miscellaneous.chess.model.Move;
+import miscellaneous.chess.model.Player;
+import miscellaneous.chess.model.ReadableBoard;
+
+import com.dici.math.geometry.geometry2D.Delta;
+import com.dici.math.geometry.geometry2D.ImmutablePoint;
 
 public class KnightMove implements Move {
     public static List<KnightMove> allPossibleMoves() {
@@ -28,7 +29,7 @@ public class KnightMove implements Move {
 
     @Override
     public List<Move> getAllowedSubMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board) {
-        return board.isLegal(move(origin), currentPlayer) ? singletonList(this) : emptyList();
+        return isLegal(origin, currentPlayer, board) ? singletonList(this) : emptyList();
     }
 
     public static enum Orientation {

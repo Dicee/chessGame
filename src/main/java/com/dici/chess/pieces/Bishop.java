@@ -1,13 +1,13 @@
-package com.dici.chess.pieces;
-
-import static com.dici.collection.CollectionUtils.unionList;
+package miscellaneous.chess.pieces;
 
 import java.util.List;
 
-import com.dici.chess.model.Piece;
-import com.dici.chess.moves.DiagonalMove;
-import com.dici.chess.moves.MoveWithLength;
+import miscellaneous.chess.model.PieceType;
+import miscellaneous.chess.moves.DiagonalMove;
+import miscellaneous.chess.moves.MoveWithLength;
 
-public class Bishop implements Piece {
-    @Override public List<MoveWithLength> getMaximalMoves() { return unionList(DiagonalMove.allMaximalMoves()); }
+public class Bishop extends AbstractPiece {
+    public Bishop() { super(PieceType.BISHOP); }
+
+    @Override public List<? extends MoveWithLength> getMaximalMoves() { return DiagonalMove.allMaximalMoves(); }
 }

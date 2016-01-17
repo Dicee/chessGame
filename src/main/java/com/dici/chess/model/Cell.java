@@ -1,4 +1,4 @@
-package com.dici.chess.model;
+package miscellaneous.chess.model;
 
 import static com.dici.check.Check.notNull;
 

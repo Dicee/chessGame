@@ -1,16 +1,18 @@
-package com.dici.chess.pieces;
+package miscellaneous.chess.pieces;
 
 import static com.dici.collection.CollectionUtils.unionList;
 
 import java.util.List;
 
-import com.dici.chess.model.Piece;
-import com.dici.chess.moves.DiagonalMove;
-import com.dici.chess.moves.HorizontalMove;
-import com.dici.chess.moves.MoveWithLength;
-import com.dici.chess.moves.VerticalMove;
+import miscellaneous.chess.model.PieceType;
+import miscellaneous.chess.moves.DiagonalMove;
+import miscellaneous.chess.moves.HorizontalMove;
+import miscellaneous.chess.moves.MoveWithLength;
+import miscellaneous.chess.moves.VerticalMove;
 
-public class King implements Piece {
+public class King extends AbstractPiece {
+    public King() { super(PieceType.KING); }
+    
     @Override
     public List<MoveWithLength> getMaximalMoves() {
         return unionList(DiagonalMove.allUnitMoves(), HorizontalMove.allUnitMoves(), VerticalMove.allUnitMoves());

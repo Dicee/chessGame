@@ -1,11 +1,12 @@
-package com.dici.chess.moves;
+package miscellaneous.chess.moves;
 
 import static com.dici.collection.CollectionUtils.listOf;
 
 import java.util.List;
 
-import com.dici.chess.model.ChessBoard;
-import com.dici.chess.utils.Delta;
+import miscellaneous.chess.model.ChessBoard;
+
+import com.dici.math.geometry.geometry2D.Delta;
 
 public final class HorizontalMove extends MoveWithLength {
     public static List<HorizontalMove> allMaximalMoves() { return allMovesFromLength(ChessBoard.BOARD_SIZE); }

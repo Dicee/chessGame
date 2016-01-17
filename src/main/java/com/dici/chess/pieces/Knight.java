@@ -1,10 +1,12 @@
-package com.dici.chess.pieces;
+package miscellaneous.chess.pieces;
 
 import java.util.List;
 
-import com.dici.chess.model.Piece;
-import com.dici.chess.moves.KnightMove;
+import miscellaneous.chess.model.PieceType;
+import miscellaneous.chess.moves.KnightMove;
 
-public class Knight implements Piece {
+public class Knight extends AbstractPiece {
+    public Knight() { super(PieceType.KNIGHT); }
+    
     @Override public List<KnightMove> getMaximalMoves() { return KnightMove.allPossibleMoves(); }
 }

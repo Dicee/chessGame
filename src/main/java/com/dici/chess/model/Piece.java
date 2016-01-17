@@ -1,4 +1,4 @@
-package com.dici.chess.model;
+package miscellaneous.chess.model;
 
 import static com.dici.collection.CollectionUtils.unionList;
 import static java.util.Collections.emptyList;
@@ -6,9 +6,11 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 
-import com.dici.chess.utils.ImmutablePoint;
+import com.dici.math.geometry.geometry2D.ImmutablePoint;
 
 public interface Piece {
+    PieceType getPieceType();
+    
     default List<? extends Move> getMaximalMoves() { return emptyList(); }
     
     default List<? extends Move> specialRuleAllowedMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board, boolean isFirstTurn) { 

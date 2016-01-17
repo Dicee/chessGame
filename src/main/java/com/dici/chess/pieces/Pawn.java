@@ -1,19 +1,22 @@
-package com.dici.chess.pieces;
+package miscellaneous.chess.pieces;
 
 import static com.dici.collection.CollectionUtils.listOf;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import com.dici.chess.model.Piece;
-import com.dici.chess.model.Player;
-import com.dici.chess.model.ReadableBoard;
-import com.dici.chess.moves.DiagonalMove;
-import com.dici.chess.moves.MoveWithLength;
-import com.dici.chess.moves.VerticalMove;
-import com.dici.chess.utils.ImmutablePoint;
+import miscellaneous.chess.model.PieceType;
+import miscellaneous.chess.model.Player;
+import miscellaneous.chess.model.ReadableBoard;
+import miscellaneous.chess.moves.DiagonalMove;
+import miscellaneous.chess.moves.MoveWithLength;
+import miscellaneous.chess.moves.VerticalMove;
 
-public class Pawn implements Piece {
+import com.dici.math.geometry.geometry2D.ImmutablePoint;
+
+public class Pawn extends AbstractPiece {
+    public Pawn() { super(PieceType.PAWN); }
+    
     @Override
     public List<MoveWithLength> specialRuleAllowedMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board, boolean isFirstTurn) {
         List<MoveWithLength> moves = new LinkedList<>();
@@ -25,7 +28,8 @@ public class Pawn implements Piece {
         
         List<MoveWithLength> attackMoves = listOf(new DiagonalMove(1, signum, 1), new DiagonalMove(-1, signum, 1));
         for (MoveWithLength attackMove : attackMoves) {
-            if (attackMove.isLegal(origin, currentPlayer, board)) moves.add(attackMove);
+            ImmutablePoint pos = attackMove.move(origin);
+            if (board.isLegal(pos, currentPlayer) && board.isOccupied(pos)) moves.add(attackMove);
         }
         return moves;
     }
