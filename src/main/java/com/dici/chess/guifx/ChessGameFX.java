@@ -1,7 +1,7 @@
-package miscellaneous.chess.guifx;
+package com.dici.chess.guifx;
 
 import static com.dici.math.geometry.GeometryUtils.closestDiscretePoint;
-import static miscellaneous.chess.model.ChessBoard.BOARD_SIZE;
+import static com.dici.chess.model.ChessBoard.BOARD_SIZE;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -10,10 +10,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import miscellaneous.chess.model.ChessBoardViewer;
-import miscellaneous.chess.model.ChessGame;
-import miscellaneous.chess.model.PieceType;
-import miscellaneous.chess.model.Player;
+import com.dici.chess.model.ChessBoardViewer;
+import com.dici.chess.model.ChessGame;
+import com.dici.chess.model.PieceType;
+import com.dici.chess.model.Player;
 
 import com.dici.math.MathUtils;
 import com.dici.math.geometry.GeometryUtils;

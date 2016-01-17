@@ -1,13 +1,13 @@
-package miscellaneous.chess.model;
+package com.dici.chess.model;
 
 import static com.dici.check.Check.notNull;
 import static com.dici.math.MathUtils.isBetween;
-import miscellaneous.chess.pieces.Bishop;
-import miscellaneous.chess.pieces.King;
-import miscellaneous.chess.pieces.Knight;
-import miscellaneous.chess.pieces.Pawn;
-import miscellaneous.chess.pieces.Queen;
-import miscellaneous.chess.pieces.Rook;
+import com.dici.chess.pieces.Bishop;
+import com.dici.chess.pieces.King;
+import com.dici.chess.pieces.Knight;
+import com.dici.chess.pieces.Pawn;
+import com.dici.chess.pieces.Queen;
+import com.dici.chess.pieces.Rook;
 
 import com.dici.check.Check;
 import com.dici.math.geometry.geometry2D.ImmutablePoint;

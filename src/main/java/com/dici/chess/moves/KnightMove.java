@@ -1,4 +1,4 @@
-package miscellaneous.chess.moves;
+package com.dici.chess.moves;
 
 import static com.dici.check.Check.notNull;
 import static java.util.Collections.emptyList;
@@ -8,9 +8,9 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import miscellaneous.chess.model.Move;
-import miscellaneous.chess.model.Player;
-import miscellaneous.chess.model.ReadableBoard;
+import com.dici.chess.model.Move;
+import com.dici.chess.model.Player;
+import com.dici.chess.model.ReadableBoard;
 
 import com.dici.math.geometry.geometry2D.Delta;
 import com.dici.math.geometry.geometry2D.ImmutablePoint;

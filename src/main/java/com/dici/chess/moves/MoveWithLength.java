@@ -1,13 +1,13 @@
-package miscellaneous.chess.moves;
+package com.dici.chess.moves;
 
-import static miscellaneous.chess.model.ChessBoard.BOARD_SIZE;
+import static com.dici.chess.model.ChessBoard.BOARD_SIZE;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import miscellaneous.chess.model.Move;
-import miscellaneous.chess.model.Player;
-import miscellaneous.chess.model.ReadableBoard;
+import com.dici.chess.model.Move;
+import com.dici.chess.model.Player;
+import com.dici.chess.model.ReadableBoard;
 
 import com.dici.check.Check;
 import com.dici.math.geometry.geometry2D.Delta;

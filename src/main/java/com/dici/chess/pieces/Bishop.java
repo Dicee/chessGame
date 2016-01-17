@@ -1,10 +1,10 @@
-package miscellaneous.chess.pieces;
+package com.dici.chess.pieces;
 
 import java.util.List;
 
-import miscellaneous.chess.model.PieceType;
-import miscellaneous.chess.moves.DiagonalMove;
-import miscellaneous.chess.moves.MoveWithLength;
+import com.dici.chess.model.PieceType;
+import com.dici.chess.moves.DiagonalMove;
+import com.dici.chess.moves.MoveWithLength;
 
 public class Bishop extends AbstractPiece {
     public Bishop() { super(PieceType.BISHOP); }

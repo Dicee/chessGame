@@ -1,4 +1,4 @@
-package miscellaneous.chess.model;
+package com.dici.chess.model;
 
 public enum Player {
     WHITE, BLACK;

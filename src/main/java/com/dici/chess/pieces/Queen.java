@@ -1,14 +1,14 @@
-package miscellaneous.chess.pieces;
+package com.dici.chess.pieces;
 
 import static com.dici.collection.CollectionUtils.unionList;
 
 import java.util.List;
 
-import miscellaneous.chess.model.Move;
-import miscellaneous.chess.model.PieceType;
-import miscellaneous.chess.moves.DiagonalMove;
-import miscellaneous.chess.moves.HorizontalMove;
-import miscellaneous.chess.moves.VerticalMove;
+import com.dici.chess.model.Move;
+import com.dici.chess.model.PieceType;
+import com.dici.chess.moves.DiagonalMove;
+import com.dici.chess.moves.HorizontalMove;
+import com.dici.chess.moves.VerticalMove;
 
 public class Queen extends AbstractPiece {
     public Queen() { super(PieceType.QUEEN); }

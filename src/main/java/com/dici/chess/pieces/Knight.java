@@ -1,9 +1,9 @@
-package miscellaneous.chess.pieces;
+package com.dici.chess.pieces;
 
 import java.util.List;
 
-import miscellaneous.chess.model.PieceType;
-import miscellaneous.chess.moves.KnightMove;
+import com.dici.chess.model.PieceType;
+import com.dici.chess.moves.KnightMove;
 
 public class Knight extends AbstractPiece {
     public Knight() { super(PieceType.KNIGHT); }

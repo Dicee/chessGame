@@ -1,10 +1,10 @@
-package miscellaneous.chess.moves;
+package com.dici.chess.moves;
 
 import static com.dici.collection.CollectionUtils.listOf;
 
 import java.util.List;
 
-import miscellaneous.chess.model.ChessBoard;
+import com.dici.chess.model.ChessBoard;
 
 import com.dici.math.geometry.geometry2D.Delta;
 

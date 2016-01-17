@@ -1,4 +1,4 @@
-package miscellaneous.chess.guifx;
+package com.dici.chess.guifx;
 
 import javafx.scene.control.Label;
 

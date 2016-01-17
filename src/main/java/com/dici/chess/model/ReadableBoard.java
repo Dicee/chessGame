@@ -1,4 +1,4 @@
-package miscellaneous.chess.model;
+package com.dici.chess.model;
 
 import com.dici.math.geometry.geometry2D.ImmutablePoint;
 

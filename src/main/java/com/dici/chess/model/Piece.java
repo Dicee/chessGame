@@ -1,4 +1,4 @@
-package miscellaneous.chess.model;
+package com.dici.chess.model;
 
 import static com.dici.collection.CollectionUtils.unionList;
 import static java.util.Collections.emptyList;

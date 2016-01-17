@@ -1,12 +1,12 @@
-package miscellaneous.chess.guifx;
+package com.dici.chess.guifx;
 
 import static com.dici.collection.CollectionUtils.listOf;
-import static miscellaneous.chess.model.PieceType.BISHOP;
-import static miscellaneous.chess.model.PieceType.KING;
-import static miscellaneous.chess.model.PieceType.KNIGHT;
-import static miscellaneous.chess.model.PieceType.PAWN;
-import static miscellaneous.chess.model.PieceType.QUEEN;
-import static miscellaneous.chess.model.PieceType.ROOK;
+import static com.dici.chess.model.PieceType.BISHOP;
+import static com.dici.chess.model.PieceType.KING;
+import static com.dici.chess.model.PieceType.KNIGHT;
+import static com.dici.chess.model.PieceType.PAWN;
+import static com.dici.chess.model.PieceType.QUEEN;
+import static com.dici.chess.model.PieceType.ROOK;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -14,8 +14,8 @@ import java.util.stream.Stream;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import miscellaneous.chess.model.PieceType;
-import miscellaneous.chess.model.Player;
+import com.dici.chess.model.PieceType;
+import com.dici.chess.model.Player;
 
 import com.dici.check.Check;
 import com.google.common.collect.ImmutableTable;

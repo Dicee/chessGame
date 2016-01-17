@@ -1,9 +1,9 @@
-package miscellaneous.chess.pieces;
+package com.dici.chess.pieces;
 
 import com.dici.check.Check;
 
-import miscellaneous.chess.model.Piece;
-import miscellaneous.chess.model.PieceType;
+import com.dici.chess.model.Piece;
+import com.dici.chess.model.PieceType;
 
 abstract class AbstractPiece implements Piece {
     private final PieceType pieceType;
