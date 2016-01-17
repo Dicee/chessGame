@@ -23,7 +23,7 @@ import com.google.common.collect.ImmutableTable.Builder;
 import com.google.common.collect.Table;
 
 public class TilesLoader {
-    private final Image tiles = new Image(TilesLoader.class.getResourceAsStream("resources/tiles.png"));
+    private final Image tiles = new Image(TilesLoader.class.getResourceAsStream("tiles.png"));
     
     private static final int BLACK_HEIGHT = 170;
     private static final int WHITE_HEIGHT = 151;

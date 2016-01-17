@@ -9,7 +9,8 @@ lazy val commonSettings = Seq(
 	exportJars := true,
 	javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
 	scalacOptions += "-target:jvm-1.8",
-	libraryDependencies += "junit" % "junit" % "4.11" % "test"
+	libraryDependencies += "junit" % "junit" % "4.11" % "test",
+	assemblyExcludedJars in assembly := (fullClasspath in assembly).value
 )
 
 lazy val root = 
