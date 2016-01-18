@@ -1,22 +1,20 @@
 package com.dici.chess.moves;
 
-import static com.dici.check.Check.notNull;
-import static java.util.stream.Collectors.toList;
+import com.dici.check.Check;
+import com.dici.chess.model.ChessBoard;
+import com.dici.math.geometry.geometry2D.Delta;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.dici.chess.model.ChessBoard;
-
-import com.dici.check.Check;
-import com.dici.math.geometry.geometry2D.Delta;
+import static com.dici.check.Check.notNull;
+import static java.util.stream.Collectors.toList;
 
 public final class DiagonalMove extends MoveWithLength {
     public static List<DiagonalMove> allMaximalMoves() { return allMovesFromLength(ChessBoard.BOARD_SIZE); }
     public static List<DiagonalMove> allUnitMoves   () { return allMovesFromLength(1); }
     
     public static List<DiagonalMove> allMovesFromLength(int length) { 
-        System.out.println(length);
         return Stream.of(Orientation.values()).map(orientation -> new DiagonalMove(orientation, length)).collect(toList());
     }
     

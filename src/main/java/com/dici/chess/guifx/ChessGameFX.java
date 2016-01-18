@@ -1,7 +1,10 @@
 package com.dici.chess.guifx;
 
-import static com.dici.math.geometry.GeometryUtils.closestDiscretePoint;
-import static com.dici.chess.model.ChessBoard.BOARD_SIZE;
+import com.dici.chess.model.ChessBoardViewer;
+import com.dici.chess.model.ChessGame;
+import com.dici.chess.model.PieceType;
+import com.dici.chess.model.Player;
+import com.dici.math.geometry.geometry2D.ImmutablePoint;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -10,14 +13,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import com.dici.chess.model.ChessBoardViewer;
-import com.dici.chess.model.ChessGame;
-import com.dici.chess.model.PieceType;
-import com.dici.chess.model.Player;
 
-import com.dici.math.MathUtils;
-import com.dici.math.geometry.GeometryUtils;
-import com.dici.math.geometry.geometry2D.ImmutablePoint;
+import static com.dici.chess.model.ChessBoard.BOARD_SIZE;
 
 public class ChessGameFX extends Application implements ChessBoardViewer {
     private static final int TILE_SIZE = 100;
@@ -43,17 +40,19 @@ public class ChessGameFX extends Application implements ChessBoardViewer {
 
         this.chessGame = new ChessGame(this);
 
-        Scene scene = new Scene(gridPane, 0, 0);
+        Scene scene    = new Scene(gridPane, 0, 0);
         primaryStage.setScene(scene);
 
         double height = screenBounds.getHeight();
         double width  = screenBounds.getWidth();
-        int paneSize  = 8 * TILE_SIZE;
+
+        int paneSize  = BOARD_SIZE * TILE_SIZE;
+        this.gridPane.setPrefSize(paneSize, paneSize);
 
         primaryStage.setX((width  - paneSize) / 2);
         primaryStage.setY((height - paneSize) / 2);
         primaryStage.setWidth(paneSize);
-        primaryStage.setHeight(paneSize);
+        primaryStage.setHeight(paneSize + 30);
         primaryStage.setResizable(false);
         primaryStage.show();
     }
