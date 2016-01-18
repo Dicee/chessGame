@@ -18,8 +18,8 @@ public class Tile extends Label {
     }
     
     public void select   () { select  ("red"     ); }
-    public void preselect() { select  ("green"   ); isPreSelected = true; }
-    public void unselect () { setStyle(colorStyle); }
+    public void preselect() { select  ("green"   ); isPreSelected = true ; }
+    public void unselect () { setStyle(colorStyle); isPreSelected = false; }
     
     private void select(String borderColor) { setStyle("-fx-border-width: 3; -fx-border-radius: 10; -fx-border-color: " + borderColor + ";" + colorStyle); }
     
