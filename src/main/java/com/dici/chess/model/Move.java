@@ -9,8 +9,8 @@ public interface Move {
     Delta delta();
     Set<Move> getAllowedSubMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board);
     
-    default ImmutablePoint move(ImmutablePoint pos) { return pos.move(delta()); }
+    default ImmutablePoint execute(ImmutablePoint pos) { return pos.move(delta()); }
     default boolean isLegal(ImmutablePoint pos, Player currentPlayer, ReadableBoard board) { 
-        return board.isLegal(move(pos), currentPlayer); 
+        return board.isLegal(execute(pos), currentPlayer);
     }
 }

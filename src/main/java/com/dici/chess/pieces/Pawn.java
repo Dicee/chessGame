@@ -28,7 +28,7 @@ public class Pawn extends AbstractPiece {
         
         List<MoveWithLength> attackMoves = listOf(new DiagonalMove(1, signum, 1), new DiagonalMove(-1, signum, 1));
         for (MoveWithLength attackMove : attackMoves) {
-            ImmutablePoint pos = attackMove.move(origin);
+            ImmutablePoint pos = attackMove.execute(origin);
             if (board.isLegal(pos, currentPlayer) && board.isOccupied(pos)) moves.add(attackMove);
         }
         return moves;

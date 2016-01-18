@@ -82,12 +82,12 @@ public class ChessGameFX extends Application implements ChessBoardViewer {
             int x = (int) Math.floor(ev.getSceneX() / TILE_SIZE);
             int y = (int) Math.floor(ev.getSceneY() / TILE_SIZE);
             unselectAll();
-            
+
             ImmutablePoint pos = gridToBoard(new ImmutablePoint(x, y));
             if (chessGame.getOccupier(pos) == chessGame.getCurrentPlayer()) {
                 tiles[pos.x][pos.y].select();
-                chessGame.getAllowedMoves(pos).stream().map(move -> move.move(pos))
-                                                       .forEach(coord -> tiles[coord.x][coord.y].preselect());
+                chessGame.getAllowedMoves(pos).stream().map(move -> move.execute(pos))
+                        .forEach(coord -> tiles[coord.x][coord.y].preselect());
             }
         });
     }
