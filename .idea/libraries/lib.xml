@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/dici-utils_2.11-1.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/dici-utils-assembly-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

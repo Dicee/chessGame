@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="scala-2.11">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/target/scala-2.11/chessGame-assembly-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/target/scala-2.11/chessgame_2.11-1.0-tests.jar!/" />
+      <root url="jar://$PROJECT_DIR$/target/scala-2.11/chessgame_2.11-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
