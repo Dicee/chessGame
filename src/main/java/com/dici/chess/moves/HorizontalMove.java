@@ -18,5 +18,5 @@ public final class HorizontalMove extends MoveWithLength {
     public HorizontalMove(int length) { super(length); }
 
     @Override protected MoveWithLength buildFromLength(int length) { return new HorizontalMove(length); }
-    @Override protected Delta normalizedDelta() { return new Delta(0, 1); }
+    @Override protected Delta normalizedDelta() { return new Delta(0, length / Math.abs(length)); }
 }

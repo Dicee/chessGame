@@ -18,5 +18,5 @@ public final class VerticalMove extends MoveWithLength {
     public VerticalMove(int length) { super(length); }
 
     @Override protected MoveWithLength buildFromLength(int length) { return new VerticalMove(length); }
-    @Override protected Delta normalizedDelta() { return new Delta(1, 0); }
+    @Override protected Delta normalizedDelta() { return new Delta(length / Math.abs(length), 0); }
 }
