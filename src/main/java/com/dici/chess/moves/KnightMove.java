@@ -1,24 +1,21 @@
 package com.dici.chess.moves;
 
-import static com.dici.check.Check.notNull;
-import static java.util.Collections.emptyList;
-import static java.util.Collections.singletonList;
-import static java.util.stream.Collectors.toList;
-
-import java.util.List;
-import java.util.stream.Stream;
-
 import com.dici.chess.model.Move;
 import com.dici.chess.model.Player;
 import com.dici.chess.model.ReadableBoard;
-
 import com.dici.math.geometry.geometry2D.Delta;
 import com.dici.math.geometry.geometry2D.ImmutablePoint;
 
+import java.util.Set;
+import java.util.stream.Stream;
+
+import static com.dici.check.Check.notNull;
+import static java.util.Collections.emptySet;
+import static java.util.Collections.singleton;
+import static java.util.stream.Collectors.toSet;
+
 public class KnightMove implements Move {
-    public static List<KnightMove> allPossibleMoves() {
-        return Stream.of(Orientation.values()).map(orientation -> new KnightMove(orientation)).collect(toList());
-    }
+    public static Set<KnightMove> allPossibleMoves() { return Stream.of(Orientation.values()).map(KnightMove::new).collect(toSet()); }
     
     private final Orientation orientation;
 
@@ -28,8 +25,8 @@ public class KnightMove implements Move {
     public Delta delta() { return new Delta(orientation.dx, orientation.dy); }
 
     @Override
-    public List<Move> getAllowedSubMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board) {
-        return isLegal(origin, currentPlayer, board) ? singletonList(this) : emptyList();
+    public Set<Move> getAllowedSubMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board) {
+        return isLegal(origin, currentPlayer, board) ? singleton(this) : emptySet();
     }
 
     public static enum Orientation {
@@ -67,4 +64,15 @@ public class KnightMove implements Move {
             this.dy = dy;
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        KnightMove that = (KnightMove) o;
+        return orientation == that.orientation;
+    }
+
+    @Override
+    public int hashCode() { return orientation.hashCode(); }
 }

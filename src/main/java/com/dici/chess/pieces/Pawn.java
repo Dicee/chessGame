@@ -1,25 +1,25 @@
 package com.dici.chess.pieces;
 
-import static com.dici.collection.CollectionUtils.listOf;
-
-import java.util.LinkedList;
-import java.util.List;
-
 import com.dici.chess.model.PieceType;
 import com.dici.chess.model.Player;
 import com.dici.chess.model.ReadableBoard;
 import com.dici.chess.moves.DiagonalMove;
 import com.dici.chess.moves.MoveWithLength;
 import com.dici.chess.moves.VerticalMove;
-
 import com.dici.math.geometry.geometry2D.ImmutablePoint;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static com.dici.collection.CollectionUtils.listOf;
 
 public class Pawn extends AbstractPiece {
     public Pawn() { super(PieceType.PAWN); }
     
     @Override
-    public List<MoveWithLength> specialRuleAllowedMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board, boolean isFirstTurn) {
-        List<MoveWithLength> moves = new LinkedList<>();
+    public Set<MoveWithLength> specialRuleAllowedMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board, boolean isFirstTurn) {
+        Set<MoveWithLength> moves = new HashSet<>();
         
         int signum = currentPlayer == Player.BLACK ? 1 : -1;
         moves.add(new VerticalMove(signum));

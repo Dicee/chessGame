@@ -4,18 +4,18 @@ import com.dici.check.Check;
 import com.dici.chess.model.ChessBoard;
 import com.dici.math.geometry.geometry2D.Delta;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import static com.dici.check.Check.notNull;
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 public final class DiagonalMove extends MoveWithLength {
-    public static List<DiagonalMove> allMaximalMoves() { return allMovesFromLength(ChessBoard.BOARD_SIZE); }
-    public static List<DiagonalMove> allUnitMoves   () { return allMovesFromLength(1); }
+    public static Set<DiagonalMove> allMaximalMoves() { return allMovesFromLength(ChessBoard.BOARD_SIZE); }
+    public static Set<DiagonalMove> allUnitMoves   () { return allMovesFromLength(1); }
     
-    public static List<DiagonalMove> allMovesFromLength(int length) { 
-        return Stream.of(Orientation.values()).map(orientation -> new DiagonalMove(orientation, length)).collect(toList());
+    public static Set<DiagonalMove> allMovesFromLength(int length) {
+        return Stream.of(Orientation.values()).map(orientation -> new DiagonalMove(orientation, length)).collect(toSet());
     }
     
     private final Orientation orientation;
@@ -53,5 +53,21 @@ public final class DiagonalMove extends MoveWithLength {
                          .findFirst()
                          .orElseThrow(() -> new IllegalArgumentException("No Orientation with delta " + new Delta(dx, dy)));
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        DiagonalMove that = (DiagonalMove) o;
+        return orientation == that.orientation;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + orientation.hashCode();
+        return result;
     }
 }

@@ -3,7 +3,7 @@ package com.dici.chess.model;
 import com.dici.check.Check;
 import com.dici.math.geometry.geometry2D.ImmutablePoint;
 
-import java.util.List;
+import java.util.Set;
 
 public class ChessGame implements ReadableBoard {
     private final ChessBoard board;
@@ -21,7 +21,7 @@ public class ChessGame implements ReadableBoard {
 
     @Override public Player getOccupier(int x, int y) { return board.getOccupier(x, y); }
 
-    public List<Move> getAllowedMoves(ImmutablePoint origin) {
+    public Set<Move> getAllowedMoves(ImmutablePoint origin) {
         Check.isTrue(board.isOccupied(origin), "No player on cell " + origin);
         return getPiece(origin).getAllowedMoves(origin, getCurrentPlayer(), board, turn < 2);
     }

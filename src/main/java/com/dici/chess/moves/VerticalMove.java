@@ -1,19 +1,18 @@
 package com.dici.chess.moves;
 
-import static com.dici.collection.CollectionUtils.listOf;
-
-import java.util.List;
-
 import com.dici.chess.model.ChessBoard;
-
 import com.dici.math.geometry.geometry2D.Delta;
 
+import java.util.Set;
+
+import static com.dici.collection.CollectionUtils.setOf;
+
 public final class VerticalMove extends MoveWithLength {
-    public static List<VerticalMove> allMaximalMoves() { return allMovesFromLength(ChessBoard.BOARD_SIZE); }
-    public static List<VerticalMove> allUnitMoves   () { return allMovesFromLength(1); }
+    public static Set<VerticalMove> allMaximalMoves() { return allMovesFromLength(ChessBoard.BOARD_SIZE); }
+    public static Set<VerticalMove> allUnitMoves   () { return allMovesFromLength(1); }
     
-    public static List<VerticalMove> allMovesFromLength(int length) {
-        return listOf(new VerticalMove(length), new VerticalMove(-length));
+    public static Set<VerticalMove> allMovesFromLength(int length) {
+        return setOf(new VerticalMove(length), new VerticalMove(-length));
     }
     
     public VerticalMove(int length) { super(length); }
