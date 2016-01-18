@@ -1,16 +1,13 @@
 package com.dici.chess.model;
 
+import com.dici.check.Check;
+import com.dici.chess.pieces.*;
+import com.dici.math.geometry.geometry2D.ImmutablePoint;
+
+import java.util.Optional;
+
 import static com.dici.check.Check.notNull;
 import static com.dici.math.MathUtils.isBetween;
-import com.dici.chess.pieces.Bishop;
-import com.dici.chess.pieces.King;
-import com.dici.chess.pieces.Knight;
-import com.dici.chess.pieces.Pawn;
-import com.dici.chess.pieces.Queen;
-import com.dici.chess.pieces.Rook;
-
-import com.dici.check.Check;
-import com.dici.math.geometry.geometry2D.ImmutablePoint;
 
 public class ChessBoard implements ReadableBoard {
     public static final int BOARD_SIZE = 8;
@@ -19,17 +16,18 @@ public class ChessBoard implements ReadableBoard {
     public static boolean isLegal(int x, int y) { return isBetween(0, x, BOARD_SIZE) && isBetween(0, y, BOARD_SIZE); }
     
     private final Cell[][] cells = new Cell[BOARD_SIZE][BOARD_SIZE];
-    private ChessBoardViewer boardViewer;
+    private Optional<ChessBoardViewer> boardViewerOpt;
 
     public ChessBoard() { this(null); }
     
     public ChessBoard(ChessBoardViewer boardViewer) {
-        if (boardViewer != null) registerBoardViewer(boardViewer);
-        
+        this.boardViewerOpt = boardViewer == null ? Optional.empty() : Optional.of(boardViewer);
+        this.boardViewerOpt.ifPresent(this::registerBoardViewer);
+
         for (Player player : Player.values()) {
             int baseRow  = player == Player.BLACK ? 0 : BOARD_SIZE - 1;
             int pawnsRow = baseRow + (player == Player.BLACK ? 1 : -1);
-            
+
             setRooks       (player, baseRow );
             setKnights     (player, baseRow );
             setBishops     (player, baseRow );
@@ -64,9 +62,7 @@ public class ChessBoard implements ReadableBoard {
     
     private void init(int i, int j, Player player, Piece piece) {
         cells[i][j] = new Cell(player, piece);
-        if (boardViewer != null) {
-            boardViewer.handleInitialization(new ImmutablePoint(i, j), player, piece.getPieceType());
-        }
+        boardViewerOpt.ifPresent(boardViewer -> boardViewer.handleInitialization(new ImmutablePoint(i, j), player, piece.getPieceType()));
     }
 
     @Override
@@ -79,5 +75,5 @@ public class ChessBoard implements ReadableBoard {
         return cells[pos.x][pos.y] == null ? null : cells[pos.x][pos.y].piece;
     }
     
-    void registerBoardViewer(ChessBoardViewer boardViewer) { this.boardViewer = notNull(boardViewer); }
+    void registerBoardViewer(ChessBoardViewer boardViewer) { this.boardViewerOpt = Optional.of(notNull(boardViewer)); }
 }
