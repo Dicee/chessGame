@@ -21,8 +21,8 @@ public final class HorizontalMove extends MoveWithLength {
         this.orientation = length / Math.abs(length);
     }
 
-    @Override protected MoveWithLength buildFromLength(int length) { return new HorizontalMove(length); }
-    @Override protected Delta normalizedDelta() { return new Delta(orientation, 0); }
+    @Override protected MoveWithLength buildFromLength(int length) { return new HorizontalMove(orientation * length); }
+    @Override protected Delta normalizedDelta() { return new Delta(0, orientation); }
 
     @Override
     public boolean equals(Object o) {

@@ -19,8 +19,8 @@ public final class VerticalMove extends MoveWithLength {
         this.orientation = length / Math.abs(length);
     }
 
-    @Override protected MoveWithLength buildFromLength(int length) { return new VerticalMove(length); }
-    @Override protected Delta normalizedDelta() { return new Delta(0, orientation); }
+    @Override protected MoveWithLength buildFromLength(int length) { return new VerticalMove(orientation * length); }
+    @Override protected Delta normalizedDelta() { return new Delta(orientation, 0); }
 
     @Override
     public boolean equals(Object o) {
