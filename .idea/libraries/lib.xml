@@ -5,6 +5,8 @@
       <root url="jar://$PROJECT_DIR$/lib/dici-utils-assembly-1.0.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/dici-utils_2.11-1.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

@@ -7,7 +7,6 @@ import com.dici.math.geometry.geometry2D.Delta;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static com.dici.check.Check.notNull;
 import static java.util.stream.Collectors.toSet;
 
 public final class DiagonalMove extends MoveWithLength {
@@ -19,16 +18,14 @@ public final class DiagonalMove extends MoveWithLength {
     }
     
     private final Orientation orientation;
-    
-    public DiagonalMove(Orientation orientation, int length) { 
-        super(length); 
-        this.orientation = notNull(orientation);
-    }
-    
-    public DiagonalMove(int dx, int dy, int length) { 
-        super(length); 
+
+    public DiagonalMove(Orientation orientation, int length) { this(orientation.dx * length, orientation.dy * length); }
+
+    public DiagonalMove(int dx, int dy) {
+        super(Math.abs(dx));
         Check.areEqual(Math.abs(dx), Math.abs(dy), "dx and dy should have the same absolute value");
-        this.orientation = notNull(Orientation.get(dx, dy));
+        int abs = Math.abs(dx);
+        this.orientation = Orientation.get(dx / abs, dy / abs);
     }
 
     @Override protected MoveWithLength buildFromLength(int length) { return new DiagonalMove(orientation, length); }

@@ -52,10 +52,10 @@ public class KnightMove implements Move {
                                        //   .
                                        //   .
                                 
-        LIE_RIGHT_REV(2, 1),           // . . .     
+        LIE_RIGHT_REV(2, 1),           // . . .
                                        // . 
                                 
-        LIE_LEFT_REV(-2, 1);           // . . . 
+        LIE_LEFT_REV (-2, 1);           // . . .
                                        //     .
         public final int dx, dy;
         
