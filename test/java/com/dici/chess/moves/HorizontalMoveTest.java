@@ -2,6 +2,7 @@ package com.dici.chess.moves;
 
 import com.dici.chess.model.Move;
 import com.dici.chess.model.Player;
+import com.dici.collection.richIterator.RichIntIterator;
 import com.dici.math.geometry.geometry2D.Delta;
 import com.dici.math.geometry.geometry2D.ImmutablePoint;
 import org.junit.Test;
@@ -33,10 +34,17 @@ public class HorizontalMoveTest {
     }
 
     @Test
+    public void testSubAllowedMoves_freeOfObtsacles() {
+        ImmutablePoint origin          = new ImmutablePoint(4, 1);
+        Set<Move>      allowedSubMoves = new HorizontalMove(3).getAllowedSubMoves(origin, Player.BLACK, new TestReadableBoard());
+        assertThat(allowedSubMoves, equalTo(allMovesUpToLength(3)));
+    }
+
+    @Test
     public void testSubAllowedMoves_outOfBoard() {
         ImmutablePoint origin          = new ImmutablePoint(5, 1);
         Set<Move>      allowedSubMoves = new HorizontalMove(3).getAllowedSubMoves(origin, Player.BLACK, new TestReadableBoard());
-        assertThat(allowedSubMoves, equalTo(setOf(new HorizontalMove(1), new HorizontalMove(2))));
+        assertThat(allowedSubMoves, equalTo(allMovesUpToLength(2)));
     }
 
     @Test
@@ -44,7 +52,7 @@ public class HorizontalMoveTest {
         ImmutablePoint    origin          = new ImmutablePoint(5, 1);
         TestReadableBoard board           = new TestReadableBoard().withOccupied(Player.BLACK, new ImmutablePoint(7, 1));
         Set<Move>         allowedSubMoves = new HorizontalMove(3).getAllowedSubMoves(origin, Player.BLACK, board);
-        assertThat(allowedSubMoves, equalTo(setOf(new HorizontalMove(1))));
+        assertThat(allowedSubMoves, equalTo(allMovesUpToLength(1)));
     }
 
     @Test
@@ -52,10 +60,11 @@ public class HorizontalMoveTest {
         ImmutablePoint   origin           = new ImmutablePoint(5, 1);
         TestReadableBoard board           = new TestReadableBoard().withOccupied(Player.WHITE, new ImmutablePoint(7, 1));
         Set<Move>         allowedSubMoves = new HorizontalMove(3).getAllowedSubMoves(origin, Player.BLACK, board);
-        assertThat(allowedSubMoves, equalTo(setOf(new HorizontalMove(1), new HorizontalMove(2))));
+        assertThat(allowedSubMoves, equalTo(allMovesUpToLength(2)));
     }
 
-    private HorizontalMove maximalHorizontalMove(int dx) {
+    private static HorizontalMove maximalHorizontalMove(int dx) {
         return new HorizontalMove(dx * BOARD_SIZE);
     }
+    private static Set<HorizontalMove> allMovesUpToLength(int length) { return RichIntIterator.closedRange(1, length).map(HorizontalMove::new).toSet();}
 }

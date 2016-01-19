@@ -24,7 +24,7 @@ public abstract class MoveWithLength implements Move {
     @Override
     public final Set<Move> getAllowedSubMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board) {
         Delta delta = normalizedDelta();
-        return RichIntIterator.range(1, length)
+        return RichIntIterator.closedRange(1, length)
                               .takeWhile(steps -> board.isLegal(origin.move(delta.times(steps)), currentPlayer))
                               .map(this::buildFromLength)
                               .toSet();
