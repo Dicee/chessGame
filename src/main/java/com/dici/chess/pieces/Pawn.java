@@ -1,36 +1,37 @@
 package com.dici.chess.pieces;
 
+import com.dici.chess.model.Move;
 import com.dici.chess.model.PieceType;
 import com.dici.chess.model.Player;
 import com.dici.chess.model.ReadableBoard;
 import com.dici.chess.moves.DiagonalMove;
-import com.dici.chess.moves.MoveWithLength;
 import com.dici.chess.moves.VerticalMove;
+import com.dici.collection.richIterator.RichIterators;
 import com.dici.math.geometry.geometry2D.ImmutablePoint;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import static com.dici.collection.CollectionUtils.listOf;
+import static com.dici.collection.CollectionUtils.union;
 
 public class Pawn extends AbstractPiece {
     public Pawn() { super(PieceType.PAWN); }
     
     @Override
-    public Set<MoveWithLength> specialRuleAllowedMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board, boolean isFirstTurn) {
-        Set<MoveWithLength> moves = new HashSet<>();
-        
+    public Set<Move> specialRuleAllowedMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board, boolean isFirstTurn) {
         int signum = currentPlayer == Player.BLACK ? 1 : -1;
-        moves.add(new VerticalMove(signum));
-        
-        if (isFirstTurn) moves.add(new VerticalMove(2 * signum));
-        
-        List<MoveWithLength> attackMoves = listOf(new DiagonalMove(1, signum, 1), new DiagonalMove(-1, signum, 1));
-        for (MoveWithLength attackMove : attackMoves) {
-            ImmutablePoint pos = attackMove.execute(origin);
-            if (board.isLegal(pos, currentPlayer) && board.isOccupied(pos)) moves.add(attackMove);
-        }
-        return moves;
+        return union(getRegularMoves(origin, currentPlayer, board, isFirstTurn, signum),
+                     getAttackMoves(origin, currentPlayer, board, signum));
+    }
+
+    private Set<Move> getRegularMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board, boolean isFirstTurn, int signum) {
+        return new VerticalMove(signum * (isFirstTurn ? 2 : 1)).getAllowedSubMoves(origin, currentPlayer, board);
+    }
+
+    private Set<DiagonalMove> getAttackMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board, int signum) {
+        return RichIterators.of(new DiagonalMove(1, signum), new DiagonalMove(-1, signum))
+                            .filter(attackMove -> {
+                                ImmutablePoint pos = attackMove.execute(origin);
+                                return board.isLegal(pos, currentPlayer) && board.isOccupied(pos);
+                            }).toSet();
     }
 }
