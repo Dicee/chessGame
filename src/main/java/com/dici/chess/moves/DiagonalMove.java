@@ -35,11 +35,11 @@ public final class DiagonalMove extends MoveWithLength {
     @Override protected Delta normalizedDelta() { return new Delta(orientation.dx, orientation.dy); }
 
     public static enum Orientation {
-        TOP_LEFT    (-1,  1),
-        TOP_RIGHT   ( 1,  1),
-        BOTTOM_LEFT (-1, -1),
-        BOTTOM_RIGHT( 1, -1);
-        
+        TOP_LEFT     (-1, -1),
+        BOTTOM_LEFT  (-1,  1),
+        TOP_RIGHT    ( 1, -1),
+        BOTTOM_RIGHT ( 1,  1);
+
         private final int dx, dy;
 
         private Orientation(int dx, int dy) {
