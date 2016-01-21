@@ -13,15 +13,15 @@ public interface Piece {
     
     default Set<? extends Move> getMaximalMoves() { return emptySet(); }
     
-    default Set<? extends Move> specialRuleAllowedMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board, boolean isFirstTurn) {
+    default Set<? extends Move> specialRuleAllowedMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board) {
         return emptySet();
     }
     
-    default Set<Move> getAllowedMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board, boolean isFirstTurn) {
+    default Set<Move> getAllowedMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board) {
         Set<Move> actualAllowedMoves =
                 getMaximalMoves().stream()
                                  .flatMap(move -> move.getAllowedSubMoves(origin, currentPlayer, board).stream())
                                  .collect(toSet());
-        return union(actualAllowedMoves, specialRuleAllowedMoves(origin, currentPlayer, board, isFirstTurn));
+        return union(actualAllowedMoves, specialRuleAllowedMoves(origin, currentPlayer, board));
     }
 }

@@ -39,7 +39,7 @@ public class ChessGame implements ReadableBoard {
 
     public Set<Move> getAllowedMoves(ImmutablePoint origin) {
         Check.isTrue(board.isOccupied(origin), "No player on cell " + origin);
-        return getPiece(origin).getAllowedMoves(origin, getCurrentPlayer(), board, turn < 2);
+        return getPiece(origin).getAllowedMoves(origin, getCurrentPlayer(), board);
     }
     
     private Piece getPiece(ImmutablePoint pos) { return board.getPiece(pos); }

@@ -15,7 +15,7 @@ import static com.dici.chess.model.ChessBoard.BOARD_SIZE;
 import static com.dici.chess.moves.DiagonalMove.Orientation.TOP_LEFT;
 import static com.dici.collection.CollectionUtils.listOf;
 import static com.dici.collection.CollectionUtils.setOf;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 public class DiagonalMoveTest {
@@ -71,6 +71,14 @@ public class DiagonalMoveTest {
         TestReadableBoard board           = new TestReadableBoard().withOccupied(Player.WHITE, new ImmutablePoint(0, 0), new ImmutablePoint(1, 1));
         Set<Move>         allowedSubMoves = new DiagonalMove(TOP_LEFT, 3).getAllowedSubMoves(origin, Player.BLACK, board);
         assertThat(allowedSubMoves, equalTo(allMovesUpToLength(TOP_LEFT, 1)));
+    }
+
+    @Test
+    public void testObstacleFreeSubMoves_doesNotKill() {
+        ImmutablePoint    origin          = new ImmutablePoint(2, 2);
+        TestReadableBoard board           = new TestReadableBoard().withOccupied(Player.WHITE, new ImmutablePoint(0, 0), new ImmutablePoint(1, 1));
+        Set<Move>         allowedSubMoves = new DiagonalMove(TOP_LEFT, 3).getObstacleFreeSubMoves(origin, board);
+        assertThat(allowedSubMoves, is(empty()));
     }
 
     @Test

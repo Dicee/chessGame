@@ -62,4 +62,13 @@ public class KnightMoveTest {
         Set<Move>         allowedSubMoves = knightMove.getAllowedSubMoves(origin, Player.BLACK, board);
         assertThat(allowedSubMoves, equalTo(setOf(knightMove)));
     }
+
+    @Test
+    public void testObstacleFreeSubMoves_doesNotKill() {
+        ImmutablePoint    origin          = new ImmutablePoint(1, 2);
+        TestReadableBoard board           = new TestReadableBoard().withOccupied(Player.WHITE, new ImmutablePoint(2, 0));
+        KnightMove        knightMove      = new KnightMove(STAND_LEFT_REV);
+        Set<Move>         allowedSubMoves = knightMove.getObstacleFreeSubMoves(origin, board);
+        assertThat(allowedSubMoves, is(empty()));
+    }
 }

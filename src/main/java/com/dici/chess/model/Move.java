@@ -7,8 +7,9 @@ import java.util.Set;
 
 public interface Move {
     Delta delta();
+    Set<Move> getObstacleFreeSubMoves(ImmutablePoint origin, ReadableBoard board);
     Set<Move> getAllowedSubMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board);
-    
+
     default ImmutablePoint execute(ImmutablePoint origin) { return origin.move(delta()); }
     default boolean isLegal(ImmutablePoint origin, Player currentPlayer, ReadableBoard board) { return board.isLegal(execute(origin), currentPlayer); }
     default boolean isAttack(ImmutablePoint origin, Player currentPlayer, ReadableBoard board) { return board.isLegalAttack(execute(origin), currentPlayer); }

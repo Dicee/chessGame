@@ -71,6 +71,14 @@ public class VerticalMoveTest {
         assertThat(allowedSubMoves, equalTo(allMovesUpToLength(1)));
     }
 
+    @Test
+    public void testObstacleFreeSubMoves_doesNotKill() {
+        ImmutablePoint    origin          = new ImmutablePoint(5, 1);
+        TestReadableBoard board           = new TestReadableBoard().withOccupied(Player.WHITE, new ImmutablePoint(7, 1));
+        Set<Move>         allowedSubMoves = new VerticalMove(3).getObstacleFreeSubMoves(origin, board);
+        assertThat(allowedSubMoves, equalTo(allMovesUpToLength(1)));
+    }
+
     private static VerticalMove maximalVerticalMove(int dx) { return new VerticalMove(dx * BOARD_SIZE); }
     public  static Set<VerticalMove> allMovesUpToLength(int length) { return RichIntIterator.closedRange(1, length).map(VerticalMove::new).toSet();}
 }

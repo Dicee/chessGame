@@ -71,6 +71,14 @@ public class HorizontalMoveTest {
         assertThat(allowedSubMoves, equalTo(allMovesUpToLength(1)));
     }
 
+    @Test
+    public void testObstacleFreeSubMoves_doesNotKill() {
+        ImmutablePoint    origin          = new ImmutablePoint(1, 5);
+        TestReadableBoard board           = new TestReadableBoard().withOccupied(Player.WHITE, new ImmutablePoint(1, 7));
+        Set<Move>         allowedSubMoves = new HorizontalMove(3).getObstacleFreeSubMoves(origin, board);
+        assertThat(allowedSubMoves, equalTo(allMovesUpToLength(1)));
+    }
+
     private static HorizontalMove maximalHorizontalMove(int dx) { return new HorizontalMove(dx * BOARD_SIZE);}
     private static Set<HorizontalMove> allMovesUpToLength(int length) { return RichIntIterator.closedRange(1, length).map(HorizontalMove::new).toSet();}
 }

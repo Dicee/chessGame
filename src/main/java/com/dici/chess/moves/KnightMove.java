@@ -25,6 +25,11 @@ public class KnightMove implements Move {
     public Delta delta() { return new Delta(orientation.dx, orientation.dy); }
 
     @Override
+    public Set<Move> getObstacleFreeSubMoves(ImmutablePoint origin, ReadableBoard board) {
+        return landsOnFreeCell(origin, board) ? singleton(this) : emptySet();
+    }
+
+    @Override
     public Set<Move> getAllowedSubMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board) {
         return isLegal(origin, currentPlayer, board) ? singleton(this) : emptySet();
     }
