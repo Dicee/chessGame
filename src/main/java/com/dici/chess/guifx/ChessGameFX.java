@@ -4,6 +4,7 @@ import com.dici.chess.model.ChessBoardViewer;
 import com.dici.chess.model.ChessGame;
 import com.dici.chess.model.PieceType;
 import com.dici.chess.model.Player;
+import com.dici.collection.richIterator.RichIterators;
 import com.dici.math.geometry.geometry2D.ImmutablePoint;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -121,10 +122,7 @@ public class ChessGameFX extends Application implements ChessBoardViewer {
         }
     }
 
-    private void unselectAll() {
-        for (int i = 0; i < BOARD_SIZE; i++)
-            for (int j = 0; j < BOARD_SIZE; j++) tiles[j][i].unselect();
-    }
+    private void unselectAll() { RichIterators.from2DArray(tiles).flatten().forEach(Tile::unselect); }
 
     private Tile getTile(ImmutablePoint pos) { return tiles[pos.x][pos.y]; }
 

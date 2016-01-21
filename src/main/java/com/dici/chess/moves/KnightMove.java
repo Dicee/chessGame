@@ -3,19 +3,18 @@ package com.dici.chess.moves;
 import com.dici.chess.model.Move;
 import com.dici.chess.model.Player;
 import com.dici.chess.model.ReadableBoard;
+import com.dici.collection.richIterator.RichIterators;
 import com.dici.math.geometry.geometry2D.Delta;
 import com.dici.math.geometry.geometry2D.ImmutablePoint;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import static com.dici.check.Check.notNull;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.singleton;
-import static java.util.stream.Collectors.toSet;
 
 public class KnightMove implements Move {
-    public static Set<KnightMove> allPossibleMoves() { return Stream.of(Orientation.values()).map(KnightMove::new).collect(toSet()); }
+    public static Set<KnightMove> allPossibleMoves() { return RichIterators.of(Orientation.values()).map(KnightMove::new).toSet(); }
     
     private final Orientation orientation;
 

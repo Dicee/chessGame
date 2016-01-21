@@ -2,19 +2,17 @@ package com.dici.chess.moves;
 
 import com.dici.check.Check;
 import com.dici.chess.model.ChessBoard;
+import com.dici.collection.richIterator.RichIterators;
 import com.dici.math.geometry.geometry2D.Delta;
 
 import java.util.Set;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toSet;
 
 public final class DiagonalMove extends MoveWithLength {
     public static Set<DiagonalMove> allMaximalMoves() { return allMovesFromLength(ChessBoard.BOARD_SIZE); }
     public static Set<DiagonalMove> allUnitMoves   () { return allMovesFromLength(1); }
     
     public static Set<DiagonalMove> allMovesFromLength(int length) {
-        return Stream.of(Orientation.values()).map(orientation -> new DiagonalMove(orientation, length)).collect(toSet());
+        return RichIterators.of(Orientation.values()).map(orientation -> new DiagonalMove(orientation, length)).toSet();
     }
     
     private final Orientation orientation;
@@ -45,10 +43,9 @@ public final class DiagonalMove extends MoveWithLength {
         }
         
         public static Orientation get(int dx, int dy) {
-            return Stream.of(values())
-                         .filter(orientation -> orientation.dx == dx && orientation.dy == dy)
-                         .findFirst()
-                         .orElseThrow(() -> new IllegalArgumentException("No Orientation with delta " + new Delta(dx, dy)));
+            return RichIterators.of(values())
+                                .findFirst(orientation -> orientation.dx == dx && orientation.dy == dy)
+                                .orElseThrow(() -> new IllegalArgumentException("No Orientation with delta " + new Delta(dx, dy)));
         }
     }
 
