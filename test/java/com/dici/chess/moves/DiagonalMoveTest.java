@@ -66,6 +66,14 @@ public class DiagonalMoveTest {
     }
 
     @Test
+    public void testSubAllowedMoves_alignedEnemiesKillsOnlyFirst() {
+        ImmutablePoint    origin          = new ImmutablePoint(2, 2);
+        TestReadableBoard board           = new TestReadableBoard().withOccupied(Player.WHITE, new ImmutablePoint(0, 0), new ImmutablePoint(1, 1));
+        Set<Move>         allowedSubMoves = new DiagonalMove(TOP_LEFT, 3).getAllowedSubMoves(origin, Player.BLACK, board);
+        assertThat(allowedSubMoves, equalTo(allMovesUpToLength(TOP_LEFT, 1)));
+    }
+
+    @Test
     public void testNormalizedDelta() {
         for (int dx : listOf(3, -3))
             for (int dy : listOf(3, -3))

@@ -4,30 +4,27 @@ import com.dici.check.Check;
 import com.dici.chess.model.Move;
 import com.dici.chess.model.Player;
 import com.dici.chess.model.ReadableBoard;
-import com.dici.collection.richIterator.RichIntIterator;
 import com.dici.math.geometry.geometry2D.Delta;
 import com.dici.math.geometry.geometry2D.ImmutablePoint;
 
+import java.util.HashSet;
 import java.util.Set;
-
-import static com.dici.chess.model.ChessBoard.BOARD_SIZE;
 
 public abstract class MoveWithLength implements Move {
     protected final int length;
 
     public MoveWithLength(int length) { 
-        // Check.isBetween is right-exclusive
-        Check.isBetween(1, length, BOARD_SIZE + 1, "Move larger than board size : " + length + " (maximum " + BOARD_SIZE + ")");
+        Check.isGreaterThan(length, 0);
         this.length = length;
     }
     
     @Override
     public final Set<Move> getAllowedSubMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board) {
-        Delta delta = normalizedDelta();
-        return RichIntIterator.closedRange(1, length)
-                              .takeWhile(steps -> board.isLegal(origin.move(delta.times(steps)), currentPlayer))
-                              .map(this::buildFromLength)
-                              .toSet();
+        Set<Move> moves = new HashSet<>();
+        Move      move  = buildFromLength(1);
+        for (int i = 1; i <= length && move.landsOnFreeCell(origin, board); move = buildFromLength(++i)) moves.add(move);
+        if (move.isAttack(origin, currentPlayer, board)) moves.add(move);
+        return moves;
     }
 
     @Override

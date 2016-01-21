@@ -9,18 +9,18 @@ import java.util.Optional;
 import static com.dici.check.Check.notNull;
 import static com.dici.math.MathUtils.isBetween;
 
-public class ChessBoard implements ReadableBoard {
+public final class ChessBoard implements ReadableBoard {
     public static final int BOARD_SIZE = 8;
     
-    public static boolean isLegal(ImmutablePoint pos) { return isLegal(pos.x, pos.y); }
-    public static boolean isLegal(int x, int y) { return isBetween(0, x, BOARD_SIZE) && isBetween(0, y, BOARD_SIZE); }
+    public static boolean isInBoard(ImmutablePoint pos) { return isInBoard(pos.x, pos.y); }
+    public static boolean isInBoard(int x, int y) { return isBetween(0, x, BOARD_SIZE) && isBetween(0, y, BOARD_SIZE); }
     
     private final Cell[][] cells = new Cell[BOARD_SIZE][BOARD_SIZE];
     private Optional<ChessBoardViewer> boardViewerOpt;
 
-    public ChessBoard() { this(null); }
+    ChessBoard() { this(null); }
     
-    public ChessBoard(ChessBoardViewer boardViewer) {
+    ChessBoard(ChessBoardViewer boardViewer) {
         this.boardViewerOpt = boardViewer == null ? Optional.empty() : Optional.of(boardViewer);
         this.boardViewerOpt.ifPresent(this::registerBoardViewer);
 
@@ -67,13 +67,24 @@ public class ChessBoard implements ReadableBoard {
 
     @Override
     public Player getOccupier(int x, int y) {
-        Check.isTrue(isLegal(x, y), "Illegal position : (" + x + ", " + y + ")");
+        Check.isTrue(isInBoard(x, y), "Illegal position : (" + x + ", " + y + ")");
         return cells[x][y] == null ? null : cells[x][y].player;
     }
-    
-    public Piece getPiece(ImmutablePoint pos) {
-        return cells[pos.x][pos.y] == null ? null : cells[pos.x][pos.y].piece;
+
+    void play(ImmutablePoint origin, Move move) { play(origin, move.execute(origin)); }
+
+    void play(ImmutablePoint origin, ImmutablePoint destination) {
+        if (isOccupied(destination)) boardViewerOpt.ifPresent(boardViewer -> boardViewer.handleDeadPiece(destination));
+        boardViewerOpt.ifPresent(boardViewer -> boardViewer.handleMove(origin, destination));
+
+        setCell(destination, getCell(origin));
+        setCell(origin, null);
     }
     
+    public Piece getPiece(ImmutablePoint pos) { return getCell(pos) == null ? null : getCell(pos).piece; }
+    
     void registerBoardViewer(ChessBoardViewer boardViewer) { this.boardViewerOpt = Optional.of(notNull(boardViewer)); }
+
+    private Cell getCell(ImmutablePoint pos)            { return cells[pos.x][pos.y]; }
+    private void setCell(ImmutablePoint pos, Cell cell) { cells[pos.x][pos.y] = cell; }
 }

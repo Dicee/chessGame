@@ -27,6 +27,7 @@ public class ChessGameFX extends Application implements ChessBoardViewer {
 
     private ChessGame        chessGame;
     private Tile[][]         tiles;
+    private ImmutablePoint   selectedTilePos;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -70,36 +71,66 @@ public class ChessGameFX extends Application implements ChessBoardViewer {
 
     @Override
     public void handleInitialization(ImmutablePoint pos, Player player, PieceType pieceType) {
-        tiles[pos.x][pos.y].setGraphic(tilesLoader.getPiece(player, pieceType, TILE_SIZE));
+        getTile(pos).setGraphic(tilesLoader.getPiece(player, pieceType, TILE_SIZE));
     }
 
     @Override
     public void handleMove(ImmutablePoint from, ImmutablePoint to) {
+        Tile fromTile = getTile(from);
+        Tile toTile   = getTile(to);
+
+        toTile.setGraphic(fromTile.getGraphic());
+        fromTile.setGraphic(null);
+    }
+
+    @Override
+    public void handleDeadPiece(ImmutablePoint pos) {
+        // nothing to do
     }
 
     private void setGlobalEventHandler(Node root) {
         root.addEventHandler(MouseEvent.MOUSE_CLICKED, ev -> {
             int x = (int) Math.floor(ev.getSceneX() / TILE_SIZE);
             int y = (int) Math.floor(ev.getSceneY() / TILE_SIZE);
+
+            ImmutablePoint pos        = gridToBoard(new ImmutablePoint(x, y));
+            boolean preSelected       = getTile(pos).isPreSelected();
+            boolean validNewSelection = chessGame.getOccupier(pos) == chessGame.getCurrentPlayer();
             unselectAll();
 
-            ImmutablePoint pos = gridToBoard(new ImmutablePoint(x, y));
-            if (chessGame.getOccupier(pos) == chessGame.getCurrentPlayer()) {
-                tiles[pos.x][pos.y].select();
-                chessGame.getAllowedMoves(pos).stream().map(move -> move.execute(pos))
-                        .forEach(coord -> tiles[coord.x][coord.y].preselect());
+            if (preSelected) {
+                chessGame.play(selectedTilePos, pos);
+            } else if (validNewSelection) {
+                selectTileAt(pos);
+                chessGame.getAllowedMoves(pos).stream().map(move -> move.execute(pos)).forEach(coord -> getTile(coord).preselect());
             }
+
+            if (!validNewSelection) clearTileSelection();
         });
     }
-    
+
+    private void selectTileAt(ImmutablePoint pos) {
+        getTile(pos).select();
+        selectedTilePos = pos;
+    }
+
+    private void clearTileSelection() {
+        if (selectedTilePos != null) {
+            getTile(selectedTilePos).unselect();
+            selectedTilePos = null;
+        }
+    }
+
     private void unselectAll() {
         for (int i = 0; i < BOARD_SIZE; i++)
             for (int j = 0; j < BOARD_SIZE; j++) tiles[j][i].unselect();
     }
 
+    private Tile getTile(ImmutablePoint pos) { return tiles[pos.x][pos.y]; }
+
     private static ImmutablePoint boardToGrid(ImmutablePoint pos) { return new ImmutablePoint(pos.y, pos.x); }
     // does the same thing as above, but keeping it in case it changes later
-    private static ImmutablePoint gridToBoard(ImmutablePoint pos) { return boardToGrid(pos)                ; }
+    private static ImmutablePoint gridToBoard(ImmutablePoint pos) { return boardToGrid(pos) ; }
     
     public static void main(String[] args) {
         launch(args);

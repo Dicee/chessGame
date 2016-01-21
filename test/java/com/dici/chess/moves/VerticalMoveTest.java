@@ -63,6 +63,14 @@ public class VerticalMoveTest {
         assertThat(allowedSubMoves, equalTo(allMovesUpToLength(2)));
     }
 
+    @Test
+    public void testSubAllowedMoves_alignedEnemiesKillsOnlyFirst() {
+        ImmutablePoint    origin          = new ImmutablePoint(5, 1);
+        TestReadableBoard board           = new TestReadableBoard().withOccupied(Player.WHITE, new ImmutablePoint(7, 1), new ImmutablePoint(6, 1));
+        Set<Move>         allowedSubMoves = new VerticalMove(3).getAllowedSubMoves(origin, Player.BLACK, board);
+        assertThat(allowedSubMoves, equalTo(allMovesUpToLength(1)));
+    }
+
     private static VerticalMove maximalVerticalMove(int dx) { return new VerticalMove(dx * BOARD_SIZE); }
     public  static Set<VerticalMove> allMovesUpToLength(int length) { return RichIntIterator.closedRange(1, length).map(VerticalMove::new).toSet();}
 }

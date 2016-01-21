@@ -29,9 +29,7 @@ public class Pawn extends AbstractPiece {
 
     private Set<DiagonalMove> getAttackMoves(ImmutablePoint origin, Player currentPlayer, ReadableBoard board, int signum) {
         return RichIterators.of(new DiagonalMove(1, signum), new DiagonalMove(-1, signum))
-                            .filter(attackMove -> {
-                                ImmutablePoint pos = attackMove.execute(origin);
-                                return board.isLegal(pos, currentPlayer) && board.isOccupied(pos);
-                            }).toSet();
+                            .filter(attackMove -> attackMove.isAttack(origin, currentPlayer, board))
+                            .toSet();
     }
 }

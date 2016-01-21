@@ -13,13 +13,29 @@ public class ChessGame implements ReadableBoard {
     public ChessGame() { this(null); }
     public ChessGame(ChessBoardViewer boardViewer) { this.board = new ChessBoard(boardViewer); }
 
-    private void nextTurn() { turn++; }
-    
     public void registerBoardViewer(ChessBoardViewer boardViewer) {
         board.registerBoardViewer(boardViewer);
     }
 
     @Override public Player getOccupier(int x, int y) { return board.getOccupier(x, y); }
+
+    public void play(ImmutablePoint origin, ImmutablePoint destination) {
+        validatePlayer(origin);
+        validateMove(origin, destination);
+        board.play(origin, destination);
+        turn++;
+    }
+
+    private void validateMove(ImmutablePoint origin, ImmutablePoint to) {
+        Piece piece = getPiece(origin);
+        boolean isAllowedMove = getAllowedMoves(origin).stream().map(move -> move.execute(origin)).anyMatch(pos -> pos.equals(to));
+        if (!isAllowedMove) throw new IllegalStateException("Illegal for piece " + piece + " to move from " + origin + " to " + to);
+    }
+
+    private void validatePlayer(ImmutablePoint origin) {
+        Player player = getOccupier(origin);
+        if (player != getCurrentPlayer()) throw new IllegalStateException("Current player is " + getCurrentPlayer() + ", not " + player);
+    }
 
     public Set<Move> getAllowedMoves(ImmutablePoint origin) {
         Check.isTrue(board.isOccupied(origin), "No player on cell " + origin);
