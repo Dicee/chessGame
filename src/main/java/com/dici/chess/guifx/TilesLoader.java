@@ -84,11 +84,5 @@ public class TilesLoader {
             this.x      = x;
             this.y      = y;
         }
-
-        @Override
-        public String toString() {
-            return "ImagePartition [width=" + width + ", height=" + height
-                    + ", x=" + x + ", y=" + y + "]\n";
-        }
     }
 }
